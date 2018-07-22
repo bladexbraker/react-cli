@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 "use strict";
-const { argv } = require('yargs');
-const { cru, options } = require('./src');
-const args = argv._;
-const firstArg = args[0];
-const action = cru[firstArg];
-if (action instanceof Function) {
-    args.shift();
-    action(args);
-} 
-options.go( argv);
+const yargs = require('yargs');
+const { avalableOptions, avalableCommands } = require('./src');
+const { CREATE, DELETE, UPDATE } = avalableCommands;
+yargs.options(avalableOptions)
+yargs.command(CREATE.commands, CREATE.description, CREATE.builder , CREATE.handler).exitProcess().argv
+
+/**
+ * cli progress
+ */
+// create a new progress bar instance and use shades_classic theme
+// const main = new _cliProgress.Bar({ 
+//     format: _colors.green(' {bar}') + ' {percentage}% | ETA: {eta}s | {value}/{total}',
+    
+// }, _cliProgress.Presets.shades_classic);

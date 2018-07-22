@@ -1,7 +1,8 @@
 "use strict";
 const fs = require('fs');
-const textFiles = require('./textFiles');
-const { generateLayout } = require('./layouts');
+const chalk = require('chalk');
+const textFiles = require('../textFiles');
+const { generateLayout } = require('../layouts');
 
 module.exports = ( function() {
     function createDir(dir, isThrowAble = false ) {
@@ -25,6 +26,7 @@ module.exports = ( function() {
     function createDirAndFiles( layout, prevPath = '' ) {
         const currentPath = prevPath + layout.path;
         createDir( currentPath, true );
+        console.info(`\n${ chalk.default.black.greenBright('[ created ]') } ${ layout.path.replace('/', '') } folder`);
         for (const key in layout) {
             const pathOrNestedDir = layout[ key ];
             if ( typeof pathOrNestedDir === 'string' ) {
@@ -32,6 +34,7 @@ module.exports = ( function() {
                     const to = currentPath+pathOrNestedDir;
                     const from = textFiles[ key ];
                     writeToFile( to, from );    
+                    console.info(`\n${ chalk.default.black.greenBright('[ created ]') } ${ pathOrNestedDir.replace('/', '') } file`);
                 }
             }else {
                 createDirAndFiles( pathOrNestedDir, currentPath);
@@ -39,30 +42,11 @@ module.exports = ( function() {
         }
         return 200;
     }
-    function create( args ){
-        const reactOrAngular = args.shift();
-        const projectName = args.shift();
-        if (!projectName) {
-            throw Error('Missing Directory Argument')
-        }
+    function create( projectName ){
         textFiles.packageJson = textFiles.packageJson.toString().replace('dummy', projectName );
-        let layout = null;
-        switch(reactOrAngular) {
-            case "r":
-            case "redux":
-            case "Redux": {
-                layout = generateLayout( projectName, true );
-                break;
-            }       
-            default: {
-                layout = generateLayout( projectName );
-            }
-        }
+        const { progress, layout} = generateLayout( projectName );
         createDirAndFiles( layout );
     }
-    return {
-        create,
-        c: create
-    }
+    return create
 })();
 

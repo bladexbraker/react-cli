@@ -65,7 +65,7 @@ module.exports = ( function() {
             return reduxLayout;
         }
         layout.path += home;
-        return layout;
+        return { progress: 21, layout };
     };
     
     return {
