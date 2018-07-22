@@ -1,0 +1,11 @@
+"use strict";
+const express = require('express');
+const { dummyModule } = require('../modules');
+
+const app = express();
+
+app.get('/ok', dummyModule.ok )
+    .get('/notFound', dummyModule.notFound );
+
+
+module.exports = app

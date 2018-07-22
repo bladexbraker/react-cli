@@ -1,0 +1,13 @@
+"use strict";
+module.exports = ( function() {
+    function ok( request, response ) {
+        response.send(200);
+    }
+    function notFound( request, response ) {
+        response.send(404);
+    }
+    return {
+        ok,
+        notFound
+    }
+})( );

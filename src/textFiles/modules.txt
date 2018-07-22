@@ -1,0 +1,5 @@
+'use strict';
+//require all modules here and 
+module.exports = {
+    dummyModule: require('./dummy.module')
+}
