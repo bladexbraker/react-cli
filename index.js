@@ -5,7 +5,7 @@ const { avalableOptions, avalableCommands } = require('./src');
 const { CREATE, DELETE, UPDATE } = avalableCommands;
 yargs.options(avalableOptions)
 yargs.command(CREATE.commands, CREATE.description, CREATE.builder , CREATE.handler).exitProcess().argv
-
+console.log('test');
 /**
  * cli progress
  */
