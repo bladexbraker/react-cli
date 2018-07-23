@@ -1,0 +1,4 @@
+import { DUMMY_ACTION } from '../actionTypes';
+
+//payload can be anything as long as its handled correctly in reducer
+export const dummyAction = payload => ({ type: DUMMY_ACTION, payload });

@@ -1,0 +1,6 @@
+'use strict';
+import dummyAction from './dummy.action';
+
+export default {
+    dummyAction
+};

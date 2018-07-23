@@ -1,0 +1,6 @@
+'use strict';
+import dummyActionTypes from './dummy.actionTypes';
+
+export default {
+    dummyActionTypes
+};

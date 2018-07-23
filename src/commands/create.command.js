@@ -10,12 +10,23 @@ module.exports = ( function() {
             describe: 'new projects name',
             type: 'string'
         }),
-        handler:  ({ name }) => {
+        handler:  ({ name, r }) => {
             if (name) {
                 console.info(chalk.default.green('creating new project ' + name));
-                createModule(name);        
+                createModule(name, r );        
             }
-        }        
+        },
+        demandCommand: {
+            minAmount: 1, 
+            message: 'You need at least one command before moving on'
+        }, 
+        options: {       
+            r: {
+                alias: 'redux',
+                description: 'Use react redux',
+                type: 'boolean'
+            }
+        }
     };
     return CREATE;
 })( );

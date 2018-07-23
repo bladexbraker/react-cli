@@ -1,0 +1,26 @@
+'use strict';
+import { DUMMY_ACTION } from '../actionTypes';
+
+const initalState = {
+    changes: []
+}
+
+export default function ( state = initalState, { type, payload }) {
+    const newState = { ...state } ;
+    switch ( type ) {
+        case DUMMY_ACTION: {
+            //does something to sate then return new state with changes
+            //payload = { key: 'value' }
+            const changes = [ payload ]; 
+            return {
+                ...state
+                changes
+            }
+        }
+        default:{
+            return {
+                ...state
+            }
+        }
+    }
+}

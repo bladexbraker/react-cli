@@ -1,7 +1,0 @@
-Available Commands:
-    #   create( c ):& Creates a new directory and a new React app.
-    #   generate( g ):& Generates new component/container files.
-    #   update( u ):& Updates your application and its dependencies.
-
-Available options:
-    #   --author( -a ):& set new author of the package json .

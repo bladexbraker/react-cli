@@ -31,8 +31,8 @@ module.exports = ( function() {
                 path: `/${ COMPONENTS }`,
                 app: {
                     path: '/App',
-                    appJs: '/App.view.jsx',
-                    appCss: '/App.less'
+                    dummyComponent: '/App.view.jsx',
+                    dummyCss: '/App.less'
                 }
             },
             shared: { 
@@ -45,27 +45,37 @@ module.exports = ( function() {
         src: {
             ...layout.src, 
             actionTypes: { 
-                path: `/${ ACTION_TYPES }`
+                path: `/${ ACTION_TYPES }`,
+                actionTypesIndex: '/index.js',
+                dummyActionType: '/dummy.actionType.js'
             },
             actions: { 
-                path: `/${ ACTIONS}`
+                path: `/${ ACTIONS}`,
+                actionsIndex: '/index.js',
+                dummyAction: '/dummy.action.js'
             },
             containers: { 
-                path: `/${ CONTAINERS }`
+                path: `/${ CONTAINERS }`,
+                app: {
+                    path: '/App',
+                    dummyContainer: '/App.view.jsx',
+                    dummyCss: '/App.less'
+                }
             },
             reducer: { 
-                path: `/${ REDUCERS }`
+                path: `/${ REDUCERS }`,
+                reducerIndex: '/index.js',
+                dummyReducer: '/dummy.reducer.js'
             }
         }
     }
     function generateLayout( home, isRedux )  {
         if (isRedux) {
             reduxLayout.path += home;
-            console.log('reduxLayout: ', reduxLayout);
             return reduxLayout;
         }
         layout.path += home;
-        return { progress: 21, layout };
+        return layout;
     };
     
     return {

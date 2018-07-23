@@ -5,6 +5,14 @@ const textFiles = require('../textFiles');
 const { generateLayout } = require('../layouts');
 
 module.exports = ( function() {
+    function createLog( type, currentPath, prevPath ) {
+        currentPath = currentPath.replace('/', '');
+        if ( prevPath.length > 0 ) {
+            prevPath = ' in ' + prevPath.replace('./', '');
+        }
+        console.info(`\n${ chalk.default.black.greenBright('[ created ]') } ${ type } ${ currentPath }${ prevPath }`);
+       
+    }
     function createDir(dir, isThrowAble = false ) {
         const doesExist = fs.existsSync(dir);
         if (doesExist){
@@ -16,25 +24,29 @@ module.exports = ( function() {
         fs.mkdirSync(dir); 
         return false;
     }
-    function writeToFile( to, from = null ) {
+    function writeToFile( to, from = null, fileName ) {
         if ( from ) {
+            if ( to.includes('App') ) {
+                from = from.toString().replace(/Dummy/g, fileName.substring(0, fileName.indexOf('.')) );
+            }
             fs.writeFileSync( to, from );        
         }else {
             fs.writeFileSync( to );
         }
     }
     function createDirAndFiles( layout, prevPath = '' ) {
-        const currentPath = prevPath + layout.path;
+        const path = layout.path;
+        const currentPath = prevPath + path;
         createDir( currentPath, true );
-        console.info(`\n${ chalk.default.black.greenBright('[ created ]') } ${ layout.path.replace('/', '') } folder`);
+        createLog('folder', path, prevPath);
         for (const key in layout) {
             const pathOrNestedDir = layout[ key ];
             if ( typeof pathOrNestedDir === 'string' ) {
                 if ( key !== 'path' ) {
                     const to = currentPath+pathOrNestedDir;
                     const from = textFiles[ key ];
-                    writeToFile( to, from );    
-                    console.info(`\n${ chalk.default.black.greenBright('[ created ]') } ${ pathOrNestedDir.replace('/', '') } file`);
+                    writeToFile( to, from, pathOrNestedDir.replace('/', '') );
+                    createLog('file', pathOrNestedDir, currentPath)    
                 }
             }else {
                 createDirAndFiles( pathOrNestedDir, currentPath);
@@ -42,9 +54,9 @@ module.exports = ( function() {
         }
         return 200;
     }
-    function create( projectName ){
+    function create( projectName, isRedux ){
         textFiles.packageJson = textFiles.packageJson.toString().replace('dummy', projectName );
-        const { progress, layout} = generateLayout( projectName );
+        const layout = generateLayout( projectName, isRedux );
         createDirAndFiles( layout );
     }
     return create

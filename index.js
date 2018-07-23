@@ -3,8 +3,14 @@
 const yargs = require('yargs');
 const { avalableOptions, avalableCommands } = require('./src');
 const { CREATE, DELETE, UPDATE } = avalableCommands;
+const { commands, description, builder, handler, options, demandCommand: { minAmount, message } } = CREATE;
 yargs.options(avalableOptions)
-yargs.command(CREATE.commands, CREATE.description, CREATE.builder , CREATE.handler).exitProcess().argv
+// yargs.options({
+//     r: {
+        
+//     }
+// })
+yargs.command(commands, description, builder , handler).options(options).demandCommand(minAmount, message).help().exitProcess().argv
 
 /**
  * cli progress
