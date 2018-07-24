@@ -1,9 +1,6 @@
 "use strict";
 module.exports = {
-    avalableOptions: {
+    options: {
         ...require('./options')
-    },
-    avalableCommands: {
-        ...require('./commands')
     }
 }
