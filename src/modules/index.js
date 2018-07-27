@@ -38,7 +38,7 @@ module.exports = ( function() {
         const path = layout[ keys.shift() ].replace('dummy', 'App');
         const currentPath = prevPath + path;
         if (createDir( currentPath, true )) {
-            return;
+            return false;
         }
         keys.forEach( key => {
             const pathOrNestedDir = layout[ key ];
@@ -55,6 +55,7 @@ module.exports = ( function() {
                 }
             }
         })
+        return true;
     }
     function generateType( type, where, name ){
         const layout = generatorLayouts( type );

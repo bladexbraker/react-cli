@@ -4,6 +4,9 @@ module.exports = {
     v: {
         alias: 'version'
     },
+    h: {
+        alias: 'help'
+    },
     r: {
         alias: 'redux',
         description: 'Using react redux',
