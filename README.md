@@ -7,7 +7,7 @@
 <npm i -g react-cli-ca>
 <npm install --global react-cli-ca>
 
-### Usage
+## Usage
 
 **Creating a project**
 <react-cli-ca create PROJECT-NAME>
