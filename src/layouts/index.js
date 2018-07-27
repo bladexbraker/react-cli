@@ -1,84 +1,103 @@
 "use strict";
-const { SRC, COMPONENTS, SHARED, ACTION_TYPES, ACTIONS, CONTAINERS, REDUCERS } = require('../constants')
+const { SRC, MODULES, SHARED, ROUTES, COMPONENTS, ACTION_TYPES, ACTIONS, CONTAINERS, REDUCERS } = require('../shared/strings')
 module.exports = ( function() {
-    const layout = {
+    const component = {
+        path: `/${ COMPONENTS }`,
+        dummy: {
+            path: '/Dummy',
+            js: '/Dummy.view.jsx',
+            css: '/Dummy.less'
+        } 
+    };
+    const container = { 
+        path: `/${ CONTAINERS }`,
+        dummy: {
+            js: '/Dummy.view.jsx',
+            css: '/Dummy.less'
+        }
+    };
+    const actionType = {
+        path: `/${ ACTION_TYPES }`,
+        index: '/index.js',
+        js: '/Dummy.actionType.js',
+    };
+    const action = {
+        path: `/${ ACTIONS }`,
+        index: '/index.js',
+        js: '/Dummy.action.js',
+    };
+    const reducer = {
+        path: `/${ REDUCERS }`,
+        index: '/index.js',
+        js: '/Dummy.reducer.js'
+    };
+    const module = {
+        path: `/${ MODULES }`,
+        index: '/index.js',
+        js: '/Dummy.module.js'
+    };
+    const route = {
+        path: `/${ ROUTES }`,
+        index: '/index.js',
+        js: '/Dummy.route.js'
+    };
+    const generateLayout = {
+        component,
+        container,
+        actionType,
+        action, 
+        reducer,
+        module,
+        route
+    }
+    const createLayout = {
         path: './',
         packageJson: '/package.json',
         babelRc: '/.babelrc',
         gitIgnore: '/.gitignore',
         webPack: '/webpack.config.js',
         server: '/app.js',
-        modules: {
-            path: '/modules',
-            dummyModule: '/test.module.js',
-            modules: '/index.js'
-        },
-        routes: {
-            path: '/routes',
-            dummyRoute: '/dummy.route.js',
-            routes: '/index.js'
-        },
+        indexHtml: '/index.html',
         public: {
             path: '/public',
             scripts: {
-                path: '/script',
-            },
+                path: '/scripts',
+            }
+        },    
+        shared: { 
+            path: `/${ SHARED }`
         },
         src: {
             path: `/${ SRC }`, 
-            entry: '/index.js',
-            components: {
-                path: `/${ COMPONENTS }`,
-                app: {
-                    path: '/App',
-                    dummyComponent: '/App.view.jsx',
-                    dummyCss: '/App.less'
-                }
-            },
-            shared: { 
-                path: `/${ SHARED }`
-            }
+            Index: '/index.js',
+            component,
         },
+        module,
+        route
     }
-    const reduxLayout = {
-        ...layout,
+    const createReduxLayout = {
+        ...createLayout,
         src: {
-            ...layout.src, 
-            actionTypes: { 
-                path: `/${ ACTION_TYPES }`,
-                actionTypesIndex: '/index.js',
-                dummyActionType: '/dummy.actionType.js'
-            },
-            actions: { 
-                path: `/${ ACTIONS}`,
-                actionsIndex: '/index.js',
-                dummyAction: '/dummy.action.js'
-            },
-            containers: { 
-                path: `/${ CONTAINERS }`,
-                app: {
-                    path: '/App',
-                    dummyContainer: '/App.view.jsx',
-                    dummyCss: '/App.less'
-                }
-            },
-            reducer: { 
-                path: `/${ REDUCERS }`,
-                reducerIndex: '/index.js',
-                dummyReducer: '/dummy.reducer.js'
-            }
+            ...createLayout.src, 
+            container,
+            actionType,
+            action, 
+            reducer
         }
     }
-    function generateLayout( home, isRedux )  {
+    function generatorLayouts( type )  {
+        return generateLayout[ type ];
+    };    
+    function creatorLayouts( home, isRedux )  {
         if (isRedux) {
-            reduxLayout.path += home;
-            return reduxLayout;
+            createReduxLayout.path += home;
+            return createReduxLayout;
         }
-        layout.path += home;
-        return layout;
+        createLayout.path += home;
+        return createLayout;
     };
-    
     return {
-        generateLayout
-    }
+        generatorLayouts,
+        creatorLayouts
+    };
 })( );

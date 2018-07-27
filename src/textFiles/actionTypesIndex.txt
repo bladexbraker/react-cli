@@ -1,6 +1,6 @@
 'use strict';
-import dummyActionTypes from './dummy.actionTypes';
+import dummyActionTypes from './Dummy.actionTypes';
 
 export default {
-    dummyActionTypes
+    dummyActionTypes,
 };

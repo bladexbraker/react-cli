@@ -5,7 +5,7 @@ module.exports = {
   mode: 'development',
   entry: './src/index.js',
   output: {
-    path: path.join( __dirname, 'public/script' ),
+    path: path.resolve( __dirname, 'public/scripts' ),
     filename: 'app.bundle.js'
   },
   module: {
@@ -15,7 +15,8 @@ module.exports = {
         exclude: /node_modules/
       }, {
         test: /\.less$/,
-        use: [ 'style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'less-loader' ]
+        use: [ 'style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'less-loader' ],
+        exclude: /node_modules/
     }]
   }
 };

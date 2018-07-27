@@ -1,38 +1,7 @@
+"use strict";
 module.exports = {
-    ACTION_TYPES: 'actionTypes',
-    ACTIONS: 'actions',
-    CONTAINERS: 'containers',
-    COMPONENTS: 'components',
-    REDUCERS: 'reducers',
-    SHARED: 'shared',
-    SRC: 'src',
-    AUTHOR: 'author',
-    DESCRIPTION: 'description',
-    NAME: 'name',
-    HELP: 'help',
-    TYPE_CHOICES: [
-        'component', 
-        'comp',
-        'c',
-        'container', 
-        'cont',
-        'ct',
-        'reducer', 
-        'red',
-        'r',
-        'act',
-        'a',
-        'action',
-        'actionType',
-        'acte',
-        'at',
-        'module',
-        'mod',
-        'm',
-        'route', 
-        'rot',
-        'r'
-    ],
+    firstLetterToUpper: text => text[0].toUpperCase() + text.substring(1, text.length ),
+    replaceDummy: ( stringToReplace, replaceWith ) => stringToReplace.replace( /Dummy/g, replaceWith ),
     getTypeName: type => {
         let name = type;
         switch (type) {

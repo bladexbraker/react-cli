@@ -1,5 +1,5 @@
 "use strict";
-const { AUTHOR, DESCRIPTION, NAME,HELP } = require('./constants');
+const { AUTHOR, DESCRIPTION, NAME,HELP } = require('./shared/strings');
 module.exports = {
     v: {
         alias: 'version'

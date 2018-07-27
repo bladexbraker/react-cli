@@ -4,7 +4,7 @@ const path = require('path');
 
 const app = express();
 
-app.use('/dummy', require('./dummy.route') );
+app.use('/dummy', require('./Dummy.route') );
 
 app.get('/', ( req, res ) => {
     res.sendFile( path.join( __dirname, "../index.html" ) );
