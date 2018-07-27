@@ -11,7 +11,8 @@ const {
     }
 } = require('./src');
 yargs.options(options);
-yargs
+yargs    
+    .scriptName('react-cli-ca')
     .demandCommand(1, 'You need at least one command before moving on')
     //Create Command
     .command(
