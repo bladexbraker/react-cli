@@ -10,7 +10,8 @@
 ## Usage
 
 **Creating a project**
-<react-cli-ca create PROJECT-NAME>
+`react-cli-ca create PROJECT-NAME` 
 
 **Generating**
-<react-cli-ca generate *what you want to generate*>
+`react-cli-ca generate *what you want to generate*` 
+
