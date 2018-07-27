@@ -1,16 +1,16 @@
-# @c/react-cli
+# react-cli-ca
 
 **For now it's a simple package only used for creating react/redux projects in my custom format as well as generating components, container etc...**
 
-##Installation
+## Installation
 
-<npm i -g @c/react-cli>
-<npm install --global @c/react-cli>
+<npm i -g react-cli-ca>
+<npm install --global react-cli-ca>
 
-###Usage
+### Usage
 
 **Creating a project**
-<@c/react-cli create PROJECT-NAME>
+<react-cli-ca create PROJECT-NAME>
 
 **Generating**
-<@c/react-cli generate *what you want to generate*>
+<react-cli-ca generate *what you want to generate*>
