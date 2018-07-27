@@ -4,14 +4,14 @@
 
 ## Installation
 
-<npm i -g react-cli-ca>
-<npm install --global react-cli-ca>
+>`npm i -g react-cli-ca`
+>`npm install --global react-cli-ca`
 
 ## Usage
 
 **Creating a project**
-`react-cli-ca create PROJECT-NAME` 
+>`react-cli-ca create PROJECT-NAME` 
 
 **Generating**
-`react-cli-ca generate *what you want to generate*` 
+>`react-cli-ca generate *what you want to generate*` 
 
