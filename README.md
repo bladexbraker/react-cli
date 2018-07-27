@@ -13,5 +13,5 @@
 >`react-cli-ca create PROJECT-NAME` 
 
 **Generating**
->`react-cli-ca generate *what you want to generate*` 
+>`react-cli-ca generate TYPE` 
 
