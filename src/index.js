@@ -3,8 +3,8 @@ module.exports = {
     options: {
         ...require('./options')
     },
-    modules: {
-        ...require('./modules')
+    commands: {
+        ...require('./commands')
     },
     shared: {
         ...require('./shared')
