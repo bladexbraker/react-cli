@@ -9,6 +9,9 @@
 
 ## Usage
 
+**To see options**
+>`react-cli-ca` 
+
 **Creating a project**
 >`react-cli-ca create PROJECT-NAME` 
 

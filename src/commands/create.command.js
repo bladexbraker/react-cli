@@ -2,18 +2,24 @@
 const { create } = require('../modules');
 const colors = require('../shared/colors');
 
-exports.command = [ 'create <name> [r]', 'c', 'cre' ]; 
-exports.des = 'create new project';
-exports.builder = yargs => yargs.positional('name', {
-    describe: "Project's name",
-    type: 'string'
-}); 
-exports.handler = ({ name, r }) => {
-    console.info(colors.magenta(`Staring to create new react ${ r ? 'redux ': '' }project: ${ name }` ));
-    const wasCreated = create(name, r );        
+exports.command = [ 'create <where> <name> [redux]', 'cre', 'c' ]; 
+exports.des = 'create new project <where> and with what <name> and if with redux';
+exports.builder = yargs => {
+    yargs.positional('where', {
+        describe: 'Where to create',
+        type: 'string'
+    });
+    yargs.positional('name', {
+        describe: "Project's name",
+        type: 'string'
+    })
+}; 
+exports.handler = ({ where, name, redux }) => {
+    console.info(colors.magenta(`Staring to create new react ${ redux ? 'redux ': '' }project: ${ name }` ));
+    const wasCreated = create( where, name, redux )        
     if (wasCreated) {
-        console.info(colors.magenta(`\nCreated react ${ r ? 'redux ': '' }project: ${ name }` ));
+        console.info(colors.magenta(`\nCreated react ${ redux ? 'redux ': '' }project: ${ name }` ));
     }else {
-        console.error(colors.red(`\nFailed to create ${ r ? 'redux ': '' }project: ${ name }` ));
+        console.error(colors.red(`\nFailed to create ${ redux ? 'redux ': '' }project: ${ name }` ));
     }
 };

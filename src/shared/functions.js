@@ -1,5 +1,6 @@
 "use strict";
 module.exports = {
+    INVALID_INPUT_MESSAGE: input => `${ input }: is NOT a valid location`,
     firstLetterToUpper: text => text[0].toUpperCase() + text.substring(1, text.length ),
     replaceDummy: ( stringToReplace, replaceWith ) => stringToReplace.replace( /Dummy/g, replaceWith ),
     getTypeName: type => {

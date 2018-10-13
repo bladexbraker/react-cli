@@ -1,6 +1,43 @@
 "use strict";
 const inquirer = require( 'inquirer' );
 module.exports = {
+    GET_NAMES_BY_TYPE:{
+        component: [
+            'component', 
+            'comp',
+            'c'
+        ],
+        container: [
+            'container', 
+            'cont',
+            'ct'
+        ],
+        reducer: [
+            'reducer', 
+            'red',
+            'r'
+        ],
+        action: [
+            'action',
+            'act',
+            'a'
+        ],
+        actionType: [
+            'actionType',
+            'acte',
+            'at'
+        ],
+        module: [
+            'module',
+            'mod',
+            'm'
+        ],
+        route: [
+            'route', 
+            'rot',
+            'r'
+        ]
+    },
     TYPE_CHOICES: [
         'component', 
         'comp',
@@ -25,13 +62,37 @@ module.exports = {
         'r'
     ],
     SHORT_TYPE_CHOICES: [
-        'component', 
-        'container', 
-        'reducer', 
-        'action',
-        'actionType',
-        'module',
-        'route', 
+        { 
+            name: 'component',
+            value: 'component'
+        }, { 
+            name: 'container',
+            value: 'container'
+        }, { 
+            name: 'reducer',
+            value: 'reducer'
+        }, { 
+            name: 'action',
+            value: 'action'
+        }, { 
+            name: 'actionType',
+            value: 'actionType'
+        }, { 
+            name: 'module',
+            value: 'module'
+        }, { 
+            name: 'route',
+            value: 'route'
+        },  
+    ],
+    YES_NO_CHOICES: [
+        { 
+            name: 'Yes', 
+            value: true
+        }, { 
+            name: 'No', 
+            value: false
+        }, 
     ],
     START_INQUIRER_CHOICES : [
         new inquirer.Separator('Options:'),

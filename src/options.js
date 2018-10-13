@@ -1,15 +1,21 @@
 "use strict";
 const { AUTHOR, DESCRIPTION, NAME,HELP } = require('./shared/strings');
 module.exports = {
-    v: {
-        alias: 'version'
+    general: {
+        v: {
+            alias: 'version'
+        },
+        h: {
+            alias: 'help'
+        }
     },
-    h: {
-        alias: 'help'
+    createOptions: {
+        r: {
+            alias: 'redux',
+            type: 'boolean'
+        }
     },
-    r: {
-        alias: 'redux',
-        description: 'Using react redux',
-        type: 'boolean'
+    generate: {
+        
     }
 }

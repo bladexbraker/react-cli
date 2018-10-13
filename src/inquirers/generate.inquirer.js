@@ -36,7 +36,7 @@ class GenerationInquirer {
     chooseName() {
         this.inquirer.prompt({
             name: 'name',
-            message: 'What should it be nammed?',
+            message: 'What should it be named?',
             type: 'input',
             default: 'Dummy'
         }).then( answer => {

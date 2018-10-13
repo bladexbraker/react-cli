@@ -1,103 +1,184 @@
 "use strict";
-const { SRC, MODULES, SHARED, ROUTES, COMPONENTS, ACTION_TYPES, ACTIONS, CONTAINERS, REDUCERS } = require('../shared/strings')
-module.exports = ( function() {
-    const component = {
-        path: `/${ COMPONENTS }`,
-        dummy: {
-            path: '/Dummy',
-            js: '/Dummy.view.jsx',
-            css: '/Dummy.less'
-        } 
-    };
-    const container = { 
-        path: `/${ CONTAINERS }`,
-        dummy: {
-            js: '/Dummy.view.jsx',
-            css: '/Dummy.less'
-        }
-    };
-    const actionType = {
-        path: `/${ ACTION_TYPES }`,
-        index: '/index.js',
-        js: '/Dummy.actionType.js',
-    };
-    const action = {
-        path: `/${ ACTIONS }`,
-        index: '/index.js',
-        js: '/Dummy.action.js',
-    };
-    const reducer = {
-        path: `/${ REDUCERS }`,
-        index: '/index.js',
-        js: '/Dummy.reducer.js'
-    };
-    const module = {
-        path: `/${ MODULES }`,
-        index: '/index.js',
-        js: '/Dummy.module.js'
-    };
-    const route = {
-        path: `/${ ROUTES }`,
-        index: '/index.js',
-        js: '/Dummy.route.js'
-    };
+const {
+    SRC,
+    MODULES,
+    SHARED,
+    ROUTES,
+    COMPONENTS,
+    ACTION_TYPES,
+    ACTIONS,
+    CONTAINERS,
+    REDUCERS,
+    packageJson,
+    gitIgnore,
+    server,
+    babelRc,
+    webPack,
+    indexHtml,
+    reducerIndex,
+    srcIndex,
+    actionTypeIndex,
+    actionIndex,
+    moduleIndex,
+    routeIndex,
+    actionTypeJs,
+    actionJs,
+    reducerJs,
+    moduleJs,
+    routeJs,
+    componentJs,
+    containerJs,
+    css
+} = require('../shared/strings')
+module.exports = (function () {
+    const getComponent = ( where, name ) => ({
+        path: where || `/${ COMPONENTS }`,
+        dirs: [{
+            path: name ? '/' + name : '/App',
+            files: [{
+                type: componentJs,
+                location: `/${ name || 'App' }.view.jsx`
+            }, {
+                type: css,
+                location: `/${ name || 'App' }.less`
+            }]
+        }]
+    });
+    const getContainer = ( where, name ) => ({
+        path: where || `/${ CONTAINERS }`,
+        dirs: [{
+            path: name ? '/' + name : '/App',
+            files: [{
+                type: componentJs,
+                location: `/${ name || 'App' }.view.jsx`
+            }, {
+                type: css,
+                location: `/${ name || 'App' }.less`
+            }]
+        }]
+    });
+    const getActionType = ( where, name ) => ({
+        path: where || `/${ ACTION_TYPES }`,
+        files: [where ? {} : {
+            type: actionTypeIndex,
+            location: '/index.js',
+        }, {
+            type: actionTypeJs,
+            location: `/${ name ||'Dummy' }.actionType.js`
+        }]
+    });
+    const getAction = ( where, name ) => ({
+        path: where || `/${ ACTIONS }`,
+        files: [where ? {} : {
+            type: actionIndex,
+            location: '/index.js',
+        }, {
+            type: actionTypeJs,
+            location: `/${ name ||'Dummy' }.action.js`
+        }]
+    });
+    const getReducer = ( where, name ) => ({
+        path: where || `/${ REDUCERS }`,
+        files: [where ? {} : {
+            type: reducerIndex,
+            location: '/index.js',
+        }, {
+            type: actionTypeJs,
+            location: `/${ name ||'Dummy' }.reducer.js`
+        }]
+    });
+    const getModule = ( where, name ) => ({
+        path: where || `/${  MODULES }`,
+        files: [where ? {} : {
+            type: moduleIndex,
+            location: '/index.js',
+        }, {
+            type: actionTypeJs,
+            location: `/${ name ||'Dummy' }.module.js`
+        }]
+    });
+    const getRoute = ( where, name ) => ({
+        path: where || `/${ ROUTES }`,
+        files: [where ? {} : {
+            type: routeIndex,
+            location: '/index.js',
+        }, {
+            type: actionTypeJs,
+            location: `/${ name ||'Dummy' }.route.js`
+        }]
+    });
     const generateLayout = {
-        component,
-        container,
-        actionType,
-        action, 
-        reducer,
-        module,
-        route
+        component: getComponent,
+        container: getContainer,
+        actionType: getActionType,
+        action: getAction,
+        reducer: getReducer,
+        module: getModule,
+        route: getRoute
     }
     const createLayout = {
         path: './',
-        packageJson: '/package.json',
-        babelRc: '/.babelrc',
-        gitIgnore: '/.gitignore',
-        webPack: '/webpack.config.js',
-        server: '/app.js',
-        indexHtml: '/index.html',
-        public: {
+        files: [{
+            type: packageJson,
+            location: '/package.json'
+        }, {
+            type: babelRc,
+            location: '/.babelrc'
+        }, {
+            type: gitIgnore,
+            location: '/.gitignore'
+        }, {
+            type: webPack,
+            location: '/webpack.config.js'
+        }, {
+            type: server,
+            location: '/app.js'
+        }, {
+            type: indexHtml,
+            location: '/index.html'
+        }],
+        dirs: [{
             path: '/public',
-            scripts: {
-                path: '/scripts',
-            }
-        },    
-        shared: { 
+            dirs: [{
+                path: '/scripts'
+            }, {
+                path: '/styles'
+            }]
+        }, {
             path: `/${ SHARED }`
-        },
-        src: {
-            path: `/${ SRC }`, 
-            Index: '/index.js',
-            component,
-        },
-        module,
-        route
+        }, {
+            path: `/${ SRC }`,
+            files: [{
+                type: srcIndex,
+                location: '/index.js'
+            }],
+            dirs: [
+                getComponent(),
+                getModule(),
+                getRoute()
+            ]
+        }]
     }
-    const createReduxLayout = {
-        ...createLayout,
-        src: {
-            ...createLayout.src, 
-            container,
-            actionType,
-            action, 
-            reducer
-        }
-    }
-    function generatorLayouts( type )  {
-        return generateLayout[ type ];
-    };    
-    function creatorLayouts( home, isRedux )  {
-        if (isRedux) {
-            createReduxLayout.path += home;
-            return createReduxLayout;
-        }
-        createLayout.path += home;
-        return createLayout;
+    const createReduxLayout = createLayout;
+    createReduxLayout.dirs[2].dirs = [
+        ...createReduxLayout.dirs[2].dirs,
+        getContainer(),
+        getActionType(),
+        getAction(),
+        getReducer()
+    ];
+
+    function generatorLayouts( type, where, name ) {
+        return  generateLayout[type]( where, name );
+    };
+
+    function creatorLayouts( where, name, isRedux ) {
+        const layout = isRedux ? createReduxLayout : createLayout;
+        layout.path = where + name;
+        return layout;
     };
     return {
         generatorLayouts,
         creatorLayouts
     };
-})( );
+})();
