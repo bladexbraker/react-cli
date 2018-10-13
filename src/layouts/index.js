@@ -73,7 +73,7 @@ module.exports = (function () {
             type: actionIndex,
             location: '/index.js',
         }, {
-            type: actionTypeJs,
+            type: actionJs,
             location: `/${ name ||'Dummy' }.action.js`
         }]
     });
@@ -83,7 +83,7 @@ module.exports = (function () {
             type: reducerIndex,
             location: '/index.js',
         }, {
-            type: actionTypeJs,
+            type: reducerJs,
             location: `/${ name ||'Dummy' }.reducer.js`
         }]
     });
@@ -93,7 +93,7 @@ module.exports = (function () {
             type: moduleIndex,
             location: '/index.js',
         }, {
-            type: actionTypeJs,
+            type: moduleJs,
             location: `/${ name ||'Dummy' }.module.js`
         }]
     });
@@ -103,7 +103,7 @@ module.exports = (function () {
             type: routeIndex,
             location: '/index.js',
         }, {
-            type: actionTypeJs,
+            type: routeJs,
             location: `/${ name ||'Dummy' }.route.js`
         }]
     });
@@ -146,27 +146,33 @@ module.exports = (function () {
             }]
         }, {
             path: `/${ SHARED }`
-        }, {
+        }, 
+        getModule(),
+        getRoute(), 
+        {
             path: `/${ SRC }`,
             files: [{
                 type: srcIndex,
                 location: '/index.js'
             }],
             dirs: [
-                getComponent(),
-                getModule(),
-                getRoute()
+                getComponent()
             ]
         }]
     }
     const createReduxLayout = createLayout;
-    createReduxLayout.dirs[2].dirs = [
-        ...createReduxLayout.dirs[2].dirs,
+    const srcDir = createReduxLayout.dirs.pop();
+    srcDir.dirs = [ 
+        getComponent(),
         getContainer(),
         getActionType(),
         getAction(),
         getReducer()
     ];
+    createReduxLayout.dirs = [
+        ...createReduxLayout.dirs,
+        srcDir,
+    ]
 
     function generatorLayouts( type, where, name ) {
         return  generateLayout[type]( where, name );

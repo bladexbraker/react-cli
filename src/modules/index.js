@@ -9,7 +9,12 @@ const { creatorLayouts, generatorLayouts } = require('../layouts');
 
 module.exports = ( function() {
     function create( location, name, isRedux, shouldInstall ){
-        textFiles.packageJson = textFiles.packageJson.toString().replace( 'dummy', name );
+        textFiles.packageJson = textFiles.packageJson.toString().replace( /dummy/g, name );
+        textFiles.componentJs = textFiles.componentJs.toString().replace( /Dummy/g, 'App' );
+        if ( isRedux ) {
+            textFiles.containerJs = textFiles.packageJson.toString().replace( /Dummy/g, 'App' );
+            textFiles.srcIndex = textFiles.srcIndex.toString().replace( 'components', 'containers' );            
+        }
         const regExp = new RegExp( name, 'i' );
         const layout = creatorLayouts( location.replace( regExp, '/' ), name, isRedux, shouldInstall );
         createDirAndFiles( layout );
