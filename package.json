@@ -1,7 +1,7 @@
 {
   "name": "react-cli-ca",
   "version": "1.0.2",
-  "description": "",
+  "description": "react cli using my custom format",
   "main": "react-cli-ca",
   "bin": {
     "react-cli-ca": "index.js"
@@ -17,7 +17,7 @@
   "scripts": {
     "react-cli-ca": "react-cli-ca"
   },
-  "author": "",
+  "author": "bladexbreaker",
   "license": "ISC",
   "repository": {
     "type": "git",

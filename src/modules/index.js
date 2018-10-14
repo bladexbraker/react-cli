@@ -4,7 +4,7 @@ const fs = require('fs');
 // const npm = require('npm');
 // const nopt = require('nopt');
 const textFiles = require('../textFiles');
-const { functions: { replaceDummy }, colors } = require('../shared');
+const { functions: { replaceDummy, log }, strings: { CREATE, WARNING  } } = require('../shared');
 const { creatorLayouts, generatorLayouts } = require('../layouts');
 
 module.exports = ( function() {
@@ -39,15 +39,15 @@ module.exports = ( function() {
     }
     function createDir( dir ) {
         if ( isPathInvalid( dir )  ) {
-            throw console.error( errorLog( 'Give wrong or none existent path/location' ) );
+            throw new Error( 'Give wrong or none existent location' );
         }
         const doesExist = fs.existsSync(dir);
         if (doesExist){
-            console.error( infoLog( dir, 'folder' ) ); 
+            getLogMessage( dir, 'folder', WARNING ); 
             return true;
         }
         fs.mkdirSync(dir);
-        console.info( createLog( dir, 'folder' ) );       
+        getLogMessage( dir, 'folder', CREATE );       
         return false;
     }
     function isPathInvalid( path ) {
@@ -78,25 +78,18 @@ module.exports = ( function() {
     }
     function writeToFile( to, from = null ) {
         if ( fs.existsSync(to) ) {
-            console.info( infoLog( to, 'file' )  );
+            getLogMessage( to, 'file', WARNING ) ;
             return true;        
         }
         fs.writeFileSync( to, from || '' );        
-        console.info(createLog( to, 'file' ) );
+        getLogMessage( to, 'file', CREATE );
         return false;        
     }
-    function createLog( dir, type ) {
+    function getLogMessage( dir, fileOrFolder, type ) {
         const locations = dir.split('/');
         const currentDir = locations.pop()
-        return `${ colors.greenBright('[ created ]') } ${ type }: ${ currentDir } ${ locations.length > 1 ? `in ${locations.join('/')}` : '' }`;
-    }
-    function infoLog( dir, type ) {
-        const locations = dir.split('/');
-        const currentDir = locations.pop()
-        return `${ colors.yellowBright('[ info ]') } ${ type }: ${ currentDir } already exists ${ locations.length > 1 ? `in ${locations.join('/')}` : '' }`;
-    }
-    function errorLog( content ) {
-        return `${ colors.redBright('[ error ]') } ${ content } `;
+        const message = `${ fileOrFolder }: ${ currentDir } ${ type === WARNING ? 'already exists ' : '' }${ locations.length > 1 ? `in ${locations.join('/')}` : '' }`;
+        log( type, message );
     }
     return {
         create,

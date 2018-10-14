@@ -16,6 +16,7 @@ const {
     bgGreenBright,
     bgYellow,
     bgYellowBright,
+    bgWhiteBright
 } = require( 'chalk' ).default;
 module.exports = {
     blue,
@@ -34,4 +35,5 @@ module.exports = {
     bgGreenBright,
     bgYellow,
     bgYellowBright,
+    bgWhiteBright
 }

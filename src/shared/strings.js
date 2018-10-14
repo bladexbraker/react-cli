@@ -1,5 +1,10 @@
 "use strict";
 module.exports = {
+    CREATE: 'CREATE', 
+    INFO: 'INFO', 
+    WARNING: 'WARNING', 
+    ERROR: 'ERROR', 
+    SHORTCUT: 'SHORTCUT', 
     ACTION_TYPES: 'actionTypes',
     ROUTES: 'routes',
     MODULES: 'modules',

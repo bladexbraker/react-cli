@@ -1,4 +1,6 @@
 "use strict";
+const { greenBright, blueBright, bgWhiteBright, yellowBright, redBright } = require('./colors');
+const { CREATE, INFO, WARNING, ERROR, SHORTCUT } = require('./strings');
 module.exports = {
     INVALID_INPUT_MESSAGE: input => `${ input }: is NOT a valid location`,
     firstLetterToUpper: text => text[0].toUpperCase() + text.substring(1, text.length ),
@@ -48,5 +50,24 @@ module.exports = {
             }
         }
         return name;
+    },
+    log: ( type, message ) => {
+        switch ( type ) {
+            case CREATE: {
+                return console.log(`${ greenBright('[ Create ]') } ${ message }`);
+            }
+            case SHORTCUT: {
+                return console.log(`${ blueBright('[ Shortcut ]') } ${ message }`);
+            }
+            case INFO: {
+                return console.info(`${ bgWhiteBright.black('[ Info ]') } ${ message }`);
+            }
+            case WARNING: {
+                return console.warn(`${ yellowBright('[ Warning ]') } ${ message }`);
+            }
+            case ERROR: {
+                return console.error(`${ redBright('[ Error ]') } ${ message }`);
+            }
+        }
     }
 }

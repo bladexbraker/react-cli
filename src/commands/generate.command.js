@@ -1,8 +1,7 @@
 "use strict";
 const { generate } = require('../modules');
-const colors = require('../shared/colors');
 const { TYPE_CHOICES } = require('../shared/arrays');
-const { getTypeName, firstLetterToUpper } = require('../shared/functions');
+const { functions: { getTypeName, firstLetterToUpper, log }, strings: { INFO, ERROR } } = require('../shared');
 
 exports.command = [ 'generate <type> <where> <name>', 'g', 'gen' ]; 
 exports.des = 'generate new <type> <where> u tell it to with the <name> you give( first letter of name with be changed to upper case ) '; 
@@ -24,11 +23,11 @@ exports.builder = yargs => {
 exports.handler = ({ type, where, name }) => {
     type = getTypeName( type);
     name = firstLetterToUpper( name )
-    console.info(colors.magenta(`Starting to generate new ${ type }: ${ name }`));
-    const wasGenerated = generate( type, where, name );        
-    if (wasGenerated) {
-        console.info(colors.magenta(`\nGenerated new ${ type }: ${ name }`));
-    }else {
-        console.info(colors.red(`\nFailed to generate new ${ type }: ${ name }`));
+    log( INFO, `Starting to generate new ${ type }: ${ name }` );
+    try {
+        generate( type, where, name );        
+        log( INFO, `Finished generating new ${ type }: ${ name }`);
+    } catch ({message}) {
+        log( ERROR, message );
     }
 };
